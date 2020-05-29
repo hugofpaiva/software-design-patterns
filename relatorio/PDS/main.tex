@@ -1,0 +1,156 @@
+\documentclass[10pt,portuguese]{article}
+
+\usepackage{fourier}
+
+\usepackage[]{graphicx}
+\usepackage[]{color}
+\usepackage{xcolor}
+\usepackage{alltt}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{5ex}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=auburn,
+    filecolor=magenta,      
+    urlcolor=blue, urlsize=2em
+}
+
+% Set page margins
+\usepackage[top=100pt,bottom=100pt,left=68pt,right=66pt]{geometry}
+
+% Package used for placeholder text
+\usepackage{lipsum}
+
+% Prevents LaTeX from filling out a page to the bottom
+\raggedbottom
+
+
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt} 
+\pagestyle{fancy}
+
+\usepackage{titlesec}
+\titleformat{\chapter}
+   {\normalfont\LARGE\bfseries}{\thechapter.}{1em}{}
+\titlespacing{\chapter}{0pt}{50pt}{2\baselineskip}
+
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+\usepackage[tableposition=top]{caption}
+
+
+\definecolor{light-gray}{gray}{0.95}
+
+\renewcommand{\contentsname}{Índice}
+
+\begin{document}
+
+
+\begin{titlepage}
+	\clearpage\thispagestyle{empty}
+	\centering
+	\vspace{2cm}
+
+	
+	{\Large  Padrões e Desenho de Software \par}
+	\vspace{0.5cm}
+	{\small Professor: \\
+	José Luis Oliveira\par
+	Sérgio Matos\par}
+	\vspace{4cm}
+	{ \textbf{Padrões de desenho de Software:}} \\
+	\vspace{0.5cm}
+	{\Huge \textbf{Composite \& Command}} \\
+	\vspace{1cm}
+	\vspace{4cm}
+	{\normalsize  Hugo Paiva, 93195
+	   \par}
+	 
+	\vspace{2cm}
+
+    \includegraphics[scale=0.20]{logo_ua.png}
+    
+    \vspace{2cm}
+    
+	{\normalsize DETI \\ 
+		Universidade de Aveiro \par}
+		
+	{\normalsize 05-06-2020 \par}
+	\vspace{2cm}
+		
+	
+	\pagebreak
+
+\end{titlepage}
+\tableofcontents{}
+\clearpage
+
+\section{Composite}
+\subsection{Descrição}
+\subsection{Problema}
+\subsection{Solução}
+
+\clearpage
+
+\section{Command}
+\subsection{Descrição}
+
+\par É expectável que um padrão de desenho de software comportamental, para além de fornecer boas práticas para resolver um determinado problema, foque as mesmas na forma como as classes e objetos interagem e distribuem responsabilidades. \textit{Command}, sendo um destes tipos de padrões, foca-se exatamente nesse ponto.
+
+\par O objetivo principal do padrão \textit{Command} é encapsular um pedido/comando em um objeto, permitindo, desta forma, novas aproximações ao lidar com o mesmo. Uma destas novas aproximações é, sem dúvida, a reutilização do objeto criado. Considerando, por exemplo, um comando de televisão, este executa múltiplas ações sobre uma televisão, repetindo as ações ao longo da sua utilização. Aproximando este exemplo a uma linguagem de programação, não faria sentido, sempre que um determinado botão fosse clicado, criar um novo objeto com um determinado método ou até mesmo executar um código repetidamente, que apenas funcionaria para uma televisão em específico. 
+Seguindo a lógica do \textit{Command}, faz muito mais sentido instanciar uma classe que armazena a televisão recetora do pedido e que, daí em diante, apenas necessita que lhe chamem o seu método específico para executar a ação, reutilizando e uniformizando o código. 
+
+\par Outra grande vantagem das novas formas de lidar com pedido é a possibilidade de adicionar mais métodos ao objeto criado, complementares à simples ação pedida pelo cliente. A aproximação mais usual é a adição de um método que permite reverter o comando. Um dos exemplo mais banais desta situação é toda a gestão que um programa ou sistema operativo faz dos \textit{inputs} de um utilizador. 
+Ao utilizar, por exemplo, qualquer tipo de editor de texto, o sistema operativo permite ao utilizador inserir caracteres num campo mas, permite, também, reverter essas inserções (com a ajuda do atalho \textit{ctrl+z}). Ora, isto é um exemplo visível onde faria sentido aplicar este padrão de desenho de software.
+
+\par Sendo um utilizador casual de software de edição de imagem e vídeo, ao associar o \textit{Command} à gestão que estes programas fazem das ações dos utilizadores, ficaram ainda mais claro estes conceitos. Dando o exemplo do \textit{Adobe Photoshop}, todas as alterações à imagem podem ser revertidas múltiplas vezes, pela mesma ordem em que foram executadas, bem como voltar a executá-las, após a reversão, também na ordem correta. 
+Ora, aproximando novamente a uma linguagem de programação, estas ações podem muito bem ser executadas com recurso ao padrão \textit{Command}. Encapsulando os pedidos do utilizador em objetos, estes objetos podem também ser introduzidos numa lista onde constam todos os pedidos recentes. 
+Ao utilizar os famosos atalhos para reverter e desreverter (\textit{ctrl+z e ctrl+shift+z}), o programa apenas teria utilizar o método para reverter a ação e percorrer a lista na ordem inversa. O mesmo se aplica para reverter as reversões, sendo apenas necessário utilizar o método para executar a ação e percorrer novamente a lista já na ordem "normal".
+
+
+
+
+
+\par Como em todos os padrões de desenho de software, a implementação mais correta é sempre discutível pois, apesar de uma solução se desviar da solução-base, esta pode ser justificada de acordo com o problema.
+
+\subsection{Problema}
+\subsection{Solução}
+
+
+\clearpage
+
+\section{Bibliografia}
+
+\bibliographystyle{plain}
+
+\bibliography{biblist}
+
+\vspace{5mm} %5mm vertical space
+
+[1] \url{https://sourcemaking.com/design_patterns/command}
+
+[2] \url{https://refactoring.guru/design-patterns/command}
+
+[3] \url{https://www.tutorialspoint.com/design_pattern/command_pattern.htm}
+
+[4] \url{https://www.geeksforgeeks.org/command-pattern/}
+
+[5] \url{https://medium.com/better-programming/the-command-design-pattern-2313909122b5}
+
+[6] \url{https://www.nku.edu/~foxr/CSC360/Programs/MazeWithGraphics.java}
+
+
+
+\end{document}
+

@@ -1,4 +1,4 @@
-package relatorio_command;
+package exemplo_command;
 
 public interface Command {
 	public void execute();

@@ -1,4 +1,4 @@
-package relatorio_command;
+package exemplo_command;
 
 import javax.swing.JFrame;
 

@@ -98,6 +98,15 @@
 
 \section{Composite}
 \subsection{Descrição}
+\par \textit{Composite} pertence aos padrões de desenho de software estrutural, dando, portanto, conselhos relacionados com a composição de classes e/ou objetos.
+
+\par Todos os problemas que podem ser modelados em estruturas de árvore são potenciais candidatos para este padrão de software no entanto, \textit{Composite} resolve especialmente os problemas em que um objeto composto é manipulado de forma diferente a um objeto singular, evitando verificações ou qualquer outro tipo de mecanismo para selecionar diferentes implementações entre estes dois tipos de objetos. Em suma, independentemente do tipo de objeto, usando este padrão, deve-se poder trata-lo de igual forma.
+
+
+
+\par 
+
+\par 
 \subsection{Problema}
 \subsection{Solução}
 
@@ -106,12 +115,26 @@
 \section{Command}
 \subsection{Descrição}
 
-\par É expectável que um padrão de desenho de software comportamental, para além de fornecer boas práticas para resolver um determinado problema, foque as mesmas na forma como as classes e objetos interagem e distribuem responsabilidades. \textit{Command}, sendo um destes tipos de padrões, foca-se exatamente nesse ponto.
+\par É expectável que um padrão de desenho de software comportamental, para além de fornecer boas práticas para resolver um determinado problema, foque as mesmas na forma como as classes e objetos interagem e distribuem responsabilidades.\textit{Command}, sendo um destes tipos de padrões, foca-se exactamente nesse ponto.
 
-\par O objetivo principal do padrão \textit{Command} é encapsular um pedido/comando em um objeto, permitindo, desta forma, novas aproximações ao lidar com o mesmo. Uma destas novas aproximações é, sem dúvida, a reutilização do objeto criado. Considerando, por exemplo, um comando de televisão, este executa múltiplas ações sobre uma televisão, repetindo as ações ao longo da sua utilização. Aproximando este exemplo a uma linguagem de programação, não faria sentido, sempre que um determinado botão fosse clicado, criar um novo objeto com um determinado método ou até mesmo executar um código repetidamente, que apenas funcionaria para uma televisão em específico. 
+\par O problema que este padrão resolve incide não só na repetição de código mas também na organização geral das classes e das responsabilidades. Seguindo o \textit{Single Responsibility Principle} e \textit{Open/Closed Principle}, este padrão separa a entidade que invoca uma ação, da entidade que a executa, colocando uma entidade intermédia, o \textit{Command}, que é responsável por chamar o método que desempenha a ação na entidade receptora, tal como o primeiro principio citado o dita.
+Ao fazer isto, são evitados os problemas de repetição de código, pois a entidade intermédia pode ser reutilizada múltiplas vezes, bem como problemas relacionados com limitações de comandos ou de alterações às outras entidades, de acordo com o segundo principio citado.
+
+\par No fundo, está-se a encapsular um pedido num objeto, criando a possibilidade de adicionar mais métodos ao objeto criado, complementares à simples ação pedida pelo cliente.
+A aproximação mais usual é a adição de um método que permite reverter o comando no entanto, o céu é o limite, podemos criar métodos que permitem adicionar um simples atraso à operação, até à execução de múltiplos comandos com apenas um pedido.
+
+
+
+
+
+\par EXEMPLOS
+
+\par
+
+Considerando, por exemplo, um comando de televisão, este executa múltiplas ações sobre uma televisão, repetindo as ações ao longo da sua utilização. Aproximando este exemplo a uma linguagem de programação, não faria sentido, sempre que um determinado botão fosse clicado, criar um novo objeto com um determinado método ou até mesmo executar um código repetidamente, que apenas funcionaria para uma televisão em específico. 
 Seguindo a lógica do \textit{Command}, faz muito mais sentido instanciar uma classe que armazena a televisão recetora do pedido e que, daí em diante, apenas necessita que lhe chamem o seu método específico para executar a ação, reutilizando e uniformizando o código. 
 
-\par Outra grande vantagem das novas formas de lidar com pedido é a possibilidade de adicionar mais métodos ao objeto criado, complementares à simples ação pedida pelo cliente. A aproximação mais usual é a adição de um método que permite reverter o comando. Um dos exemplo mais banais desta situação é toda a gestão que um programa ou sistema operativo faz dos \textit{inputs} de um utilizador. 
+ Um dos exemplo mais banais desta situação é toda a gestão que um programa ou sistema operativo faz dos \textit{inputs} de um utilizador. 
 Ao utilizar, por exemplo, qualquer tipo de editor de texto, o sistema operativo permite ao utilizador inserir caracteres num campo mas, permite, também, reverter essas inserções (com a ajuda do atalho \textit{ctrl+z}). Ora, isto é um exemplo visível onde faria sentido aplicar este padrão de desenho de software.
 
 \par Sendo um utilizador casual de software de edição de imagem e vídeo, ao associar o \textit{Command} à gestão que estes programas fazem das ações dos utilizadores, ficaram ainda mais claro estes conceitos. Dando o exemplo do \textit{Adobe Photoshop}, todas as alterações à imagem podem ser revertidas múltiplas vezes, pela mesma ordem em que foram executadas, bem como voltar a executá-las, após a reversão, também na ordem correta. 
@@ -137,6 +160,20 @@ Ao utilizar os famosos atalhos para reverter e desreverter (\textit{ctrl+z e ctr
 \bibliography{biblist}
 
 \vspace{5mm} %5mm vertical space
+
+\par Composite
+
+[1] \url{https://www.geeksforgeeks.org/composite-design-pattern/}
+
+[2] \url{https://refactoring.guru/design-patterns/composite}
+
+[3] \url{https://sourcemaking.com/design_patterns/composite}
+
+[4] \url{https://www.tutorialspoint.com/design_pattern/composite_pattern.htm}
+
+[5] \url{https://www.baeldung.com/java-composite-pattern}
+
+\par Command
 
 [1] \url{https://sourcemaking.com/design_patterns/command}
 

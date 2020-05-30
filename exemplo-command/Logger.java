@@ -1,35 +1,27 @@
 package relatorio_command;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 public class Logger {
 	private ArrayList<Command> actions = new ArrayList<Command>();
+	private int index;
 
 	public void add(Command act) {
 		actions.add(act);
+		index = actions.size()-1;
 	}
 
-	// Executa todas as ações guardadas no logger desde a primeira adicionada, atém
-	// à última
-	public void executeAll() {
-		if (actions.size() > 0) {
-			ListIterator act = actions.listIterator(actions.size());
-			// Iterate in reverse.
-			while (act.hasPrevious()) {
-				((Command) act.previous()).execute();
-			}
+	// Executa a ação do comando seguinte da lista
+	public void execute() {
+		if (actions.size() > 0 && index < actions.size()-1) {
+			actions.get(++index).execute();
 		}
 	}
 
-	// Desfaz as execuções de todas as ações guardadas no logger desde a última
-	// adicionada, até à primeira
-	public void unExecuteAll() {
-		if (actions.size() > 0) {
-			for (Command act : actions) {
-				act.unexecute();
-			}
+	// Reverte a ação do comando atual da lista
+	public void unExecute() {
+		if (actions.size() > 0 && index >= 0) {
+			actions.get(index--).unexecute();
 		}
 
 	}

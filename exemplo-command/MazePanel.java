@@ -1,7 +1,6 @@
 package relatorio_command;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -32,6 +31,7 @@ public class MazePanel extends JPanel // need a JPanel for Graphics
 			{ 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0 },
 			{ 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 2, 0, 0 } };
+
 	private int size, start, end; // start and end are used in paintComponent to denote the starting point in a
 									// different color
 
@@ -54,6 +54,14 @@ public class MazePanel extends JPanel // need a JPanel for Graphics
 		}
 	}
 
+	public void unSolve() {
+		for (int i = 0; i < maze.length; i++)
+			for (int j = 0; j < maze[0].length; j++)
+				if (maze[i][j] == 3) {
+					maze[i][j] = 1;
+				}
+	}
+
 	private boolean solve(int[][] m, int x, int y, int s) // m is the maze, x, y the current coordinate, s the upper
 															// bound of the 2D array
 	{
@@ -63,16 +71,10 @@ public class MazePanel extends JPanel // need a JPanel for Graphics
 			return false; // if we reach a 3, we've tried that path already so we are in a loop, return
 							// false
 		else if (m[x][y] == 2) {
-			start = x;
-			end = y;
-			repaint();
 			return true; // if we reach a 2 then we found the solution, return true
 		} else if (m[x][y] == 0)
 			return false; // if we reach a 0, we hit a wall, return false
 		else {
-			start = x;
-			end = y;
-			repaint();
 			m[x][y] = 3; // assume this is the right path, set this location to 3 to record where we are
 			if (solve(m, x + 1, y, s))
 				return true; // recursive try to solve from this point forward by trying down, up, right then

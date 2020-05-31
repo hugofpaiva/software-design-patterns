@@ -1,0 +1,135 @@
+\documentclass[10pt,portuguese]{article}
+\usepackage[portuguese]{babel}
+
+\usepackage{fourier}
+\usepackage[bottom]{footmisc}
+
+\usepackage[]{graphicx}
+\usepackage[]{color}
+\usepackage{xcolor}
+\usepackage{alltt}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{5ex}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=auburn,
+    filecolor=magenta,      
+    urlcolor=blue, urlsize=2em
+}
+
+% Set page margins
+\usepackage[top=100pt,bottom=100pt,left=68pt,right=66pt]{geometry}
+
+% Package used for placeholder text
+\usepackage{lipsum}
+
+% Prevents LaTeX from filling out a page to the bottom
+\raggedbottom
+
+
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt} 
+\pagestyle{fancy}
+
+\usepackage{titlesec}
+\titleformat{\chapter}
+   {\normalfont\LARGE\bfseries}{\thechapter.}{1em}{}
+\titlespacing{\chapter}{0pt}{50pt}{2\baselineskip}
+
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+\usepackage[tableposition=top]{caption}
+
+
+\definecolor{light-gray}{gray}{0.95}
+
+\renewcommand{\contentsname}{Índice}
+
+\begin{document}
+
+
+\begin{titlepage}
+	\clearpage\thispagestyle{empty}
+	\centering
+	\vspace{2cm}
+
+	
+	{\Large  Padrões e Desenho de Software \par}
+	\vspace{0.5cm}
+	{\small Professores: \\
+	José Luis Oliveira\par
+	Sérgio Matos\par}
+	\vspace{4cm}
+	{\Huge \textbf{Clean Code}} \\
+	\vspace{1cm}
+	\vspace{4cm}
+	{\normalsize  Hugo Paiva, 93195
+	   \par}
+	 
+	\vspace{2cm}
+
+    \includegraphics[scale=0.20]{logo_ua.png}
+    
+    \vspace{2cm}
+    
+	{\normalsize DETI \\ 
+		Universidade de Aveiro \par}
+		
+	{\normalsize 05-06-2020 \par}
+	\vspace{2cm}
+		
+	
+	\pagebreak
+
+\end{titlepage}
+\tableofcontents{}
+\clearpage
+
+\section{Clean Code}
+\subsection{Descrição}
+\par
+
+\clearpage
+
+
+
+
+\clearpage
+
+\section{Bibliografia}
+
+\bibliographystyle{plain}
+
+\bibliography{biblist}
+
+\vspace{5mm} %5mm vertical space
+
+[1] \url{https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29}
+
+[2] \url{https://garywoodfine.com/what-is-clean-code/}
+
+[3] \url{https://www.infoq.com/br/articles/clean-code-book-review/}
+
+[4] \url{http://ceur-ws.org/Vol-2066/isee2018paper06.pdf}
+
+[5] \url{https://simpleprogrammer.com/clean-code-principles-better-programmer/}
+
+[6] \url{https://x-team.com/blog/principles-clean-code/}
+
+
+
+
+
+\end{document}
+

@@ -1,6 +1,8 @@
 \documentclass[10pt,portuguese]{article}
+\usepackage[portuguese]{babel}
 
 \usepackage{fourier}
+\usepackage[bottom]{footmisc}
 
 \usepackage[]{graphicx}
 \usepackage[]{color}
@@ -100,8 +102,17 @@
 \subsection{Descrição}
 \par \textit{Composite} pertence aos padrões de desenho de software estrutural, dando, portanto, conselhos relacionados com a composição de classes e/ou objetos.
 
-\par Todos os problemas que podem ser modelados em estruturas de árvore são potenciais candidatos para este padrão de software no entanto, \textit{Composite} resolve especialmente os problemas em que um objeto composto é manipulado de forma diferente a um objeto singular, evitando verificações ou qualquer outro tipo de mecanismo para selecionar diferentes implementações entre estes dois tipos de objetos. Em suma, independentemente do tipo de objeto, usando este padrão, deve-se poder trata-lo de igual forma.
+\par Todos os problemas que podem ser modelados em estruturas de árvore são potenciais candidatos para este padrão de software no entanto, \textit{Composite} resolve especialmente os problemas em que um objeto composto é manipulado de forma diferente que um objeto singular, evitando verificações ou qualquer outro tipo de mecanismo para selecionar diferentes implementações entre estes dois tipos de objetos. Em suma, independentemente do tipo de objeto, usando este padrão, deve-se poder tratá-lo de igual forma.
 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=200]{images/composite/UML.png}
+    \caption{Estrutura usual do padrão \textit{Composite} em um diagrama de classes}
+\end{figure}
+
+\par Como é possível observar a partir da Figura 1, independentemente do tipo de objeto, ambos implementam o mesmo método, permitindo, no entanto,  a adição de outros objetos no objeto composto. De notar que, apesar do método ter o mesmo nome, apresentando transparência e facilidade ao cliente, dependendo do tipo do objeto, a implementação é diferente, sendo usual percorrer o filhos e chamar o mesmo método no objeto composto, como é possível observar na Figura.
+
+\par Existem, no entanto, outros tipo de implementações ao utilizar este padrão com a possibilidade de permitir a remoção de objetos contidos no objeto composto ou, por exemplo, permitir apenas a substituição dos objetos guardados, por um novo, ao invés de adicionar, com o benefício da melhor compreensão do programa, mas reduzindo a flexibilidade. Dito isto, todas estas pequenas modificações sugeridas ao exemplo da Figura 1 continuam a manter a base do padrão \textit{Composite}, sendo totalmente válidas.
 
 
 \par 
@@ -137,9 +148,9 @@ Seguindo a lógica do \textit{Command}, faz muito mais sentido instanciar uma cl
  Um dos exemplo mais banais desta situação é toda a gestão que um programa ou sistema operativo faz dos \textit{inputs} de um utilizador. 
 Ao utilizar, por exemplo, qualquer tipo de editor de texto, o sistema operativo permite ao utilizador inserir caracteres num campo mas, permite, também, reverter essas inserções (com a ajuda do atalho \textit{ctrl+z}). Ora, isto é um exemplo visível onde faria sentido aplicar este padrão de desenho de software.
 
-\par Sendo um utilizador casual de software de edição de imagem e vídeo, ao associar o \textit{Command} à gestão que estes programas fazem das ações dos utilizadores, ficaram ainda mais claro estes conceitos. Dando o exemplo do \textit{Adobe Photoshop}, todas as alterações à imagem podem ser revertidas múltiplas vezes, pela mesma ordem em que foram executadas, bem como voltar a executá-las, após a reversão, também na ordem correta. 
-Ora, aproximando novamente a uma linguagem de programação, estas ações podem muito bem ser executadas com recurso ao padrão \textit{Command}. Encapsulando os pedidos do utilizador em objetos, estes objetos podem também ser introduzidos numa lista onde constam todos os pedidos recentes. 
-Ao utilizar os famosos atalhos para reverter e desreverter (\textit{ctrl+z e ctrl+shift+z}), o programa apenas teria utilizar o método para reverter a ação e percorrer a lista na ordem inversa. O mesmo se aplica para reverter as reversões, sendo apenas necessário utilizar o método para executar a ação e percorrer novamente a lista já na ordem "normal".
+\par Pessoalmente, sendo eu um utilizador casual de algum software de edição de imagens e vídeo (\textit{Adobe Photoshop, Adobe Illustrator e Final Cut Pro}), ao associar o \textit{Command} à gestão que estes programas fazem das ações dos utilizadores, os conceitos análogos ao mesmo tornaram-se ainda mais claros. Pegando no exemplo do \textit{Adobe Photoshop}, todas as alterações que são feitas a uma imagem podem ser desfeitas múltiplas vezes, tanto pela mesma ordem em que foram executadas, como também voltar a refazê-las, novamente, na ordem inversa. 
+Ora, aproximando novamente a uma linguagem de programação, estas ações podem muito bem ser executadas com recurso ao padrão \textit{Command} ao encapsular os pedidos do utilizador em objetos. Estes objetos podem também ser introduzidos numa lista onde constam todos os pedidos recentes. 
+Ao utilizar os famosos atalhos para desfazer e refazer (\textit{ctrl+z e ctrl+shift+z}), o programa apenas teria de utilizar o método para desfazer a ação e percorrer a lista na ordem inversa. O mesmo se aplica para refazer as ações desfeitas, sendo apenas necessário utilizar o método para executar a ação e percorrer novamente a lista já na ordem "normal".
 
 
 

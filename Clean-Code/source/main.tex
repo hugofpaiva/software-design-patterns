@@ -130,7 +130,7 @@ showstringspaces=false}
 \par Estando profundamente associado à complexidade de um sistema, ou seja, quanto mais limpo está o código, menos complexidade o sistema tem, é natural que o estudo dos sintomas desta complexidade seja um fator relevante para a escrita de um código limpo. 
 
 \par Com isto em mente, \textit{Robert} definiu alguns princípios e boas práticas para chegar ao conceito de \textit{Clean Code}, tendo em conta toda a sua experiência em programação desde os anos 70.  De entre os referidos no livro, destacaram-se os seguintes:
-SOLUCIONA A MANUTENÇÃO
+
 \begin{itemize}
     \item \textbf{Nomes Significativos}
     \item \textbf{Organização de Funções}
@@ -252,45 +252,45 @@ if (!car.paysIuc())...
 
 \subsubsection{Formatação de Código}
 
-\par Sem formatação de código, este passaria a ser praticamente impossível de ler pelos desenvolvedores. Deve-se ter em atenção a formatação na vertical como na horizonta no entanto, é necessário identificar os casos onde esta é necessário.
+\par Sem formatação de código, este passaria a ser praticamente impossível de ler pelos desenvolvedores. Deve-se ter em atenção a formatação na vertical como na horizontal no entanto, é necessário identificar os casos onde esta é necessário.
 
 \begin{lstlisting}
-public class Energy{
-  private    Socket        socket;
-  private    InputStrea    input;
-
-  public Discharge(Socket          s,
-                           FitNesseContext context) throws Exception
-  {
-    this.context = context;
-    input =        s.getInputStream();
-  }
-}
+public class Student{  
+ private    int         number;  
+ private    String      name; 
+ 
+ public void    insertData(int   n, 
+                                    String    na){  
+  number = n;  
+  name =    na;  
+ }  
 \end{lstlisting}
 
 \Par Num caso destes, não faz sentido aplicar o alinhamento horizontal pois este dificulta a leitura dos tipos de dados bem como de outras informações relevantes.
 
 \begin{lstlisting}
-public class FitNesseExpediter implements ResponseSender
-{
-  private Socket socket;
-  private InputStream input;
+public class Student {
+    private int number;
+    private String name;
 
-  public FitNesseExpediter(Socket s, FitNesseContext context) throws Exception {
-    this.context = context;
-    input = s.getInputStream();
-  }
-}
+    public void insertData(int r, String na) {
+        number = n;
+        name = na;
+    }
 \end{lstlisting}
 
 \Par Por outro lado, a formatação é muito vantajosa para para perceber em que contexto certas funções e variáveis estão, devido à profundidade no código, com recurso a espaços antes de si:
 
 \begin{lstlisting}
-public class Quadratic {
- public static double root1(double a, double b, double c) {
-   double determinant = determinant(a, b, c);
-   return (-b + Math.sqrt(determinant)) / (2*a);
- }
+public class Dog {
+   public Dog(String name) {
+      System.out.println("Passed Name is :" + name );
+   }
+
+   public static void main(String []args) {
+      Dog myDog = new Dog( "Lazy" );
+   }
+}
 \end{lstlisting}
 
 \subsubsection{Tratamento de Erros}
@@ -312,20 +312,31 @@ public class Quadratic {
     \item \textbf{Independent} - Devem ser independentes, evitando erros em cascata
     \item \textbf{Repeatable} - Devem permitir a repetição do teste em qualquer ambiente (num portátil, sem internet...)
     \item \textbf{Self-Validating} - Devem retornar um \textit{boolean} para permitir saber eficazmente o resultado do teste
-    \item \textbf{Timely} - Devem ser escritos antes do código, facilitando a sua execução no código e pontuais
+    \item \textbf{Timely} - Devem ser escritos antes do código, facilitando a sua execução no código e, também, pontuais
 \end{itemize}
 
 \clearpage
 
 \subsection{Clean Code aplicado no Mundo}
 
-\Par Como já foi referido, um código limpo é algo que leva tempo, atenção e dedicação, algo que o sector empresarial não se interessa tanto. Como consequência, o código limpo acaba por ser a qualidade no triângulo da gestão de um projeto.
+\Par Como já foi referido, um código limpo é algo que leva tempo, atenção e dedicação, algo que o sector empresarial, por vezes, não pretende despender. Como consequência, o código limpo acaba por ser a qualidade no triângulo da gestão de um projeto.
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=200]{images/quality-triangle.jpg}
     \caption{Representação do triângulo da gestão de um projeto}
 \end{figure}
+
+\Par A partir da Figura 1, é possível observar as escolhas que um gestor de projeto tem em relação ao tempo que pretende gastar (\textbf{\textit{Time}}), ao custo total para terminar o projeto (\textbf{\textit{Cost}}) e às funcionalidade que este tem de ter implementadas para ser considerado como terminado (\textbf{\textit{Scope}}). A qualidade do código, que neste contexto estamos a associar ao conceito de \textit{Clean Code}, 
+é uma relação direta destas 3 restrições.
+
+\Par No caso de um projeto com tempo limitado, este é o lado do triângulo que será fixo. Se pretendermos manter todas as funcionalidades, teremos de ter em consideração o custo para, por exemplo, contratar mais desenvolvedores de modo a cumprir os prazos estabelecidos no entanto, para isto acontecer, este lado teria de ser flexível, ou seja, o custo tem de suportar aumentos ou diminuições, de modo a manter a uniformidade no triângulo e assegurar o desenvolvimento do projeto.
+
+\Par É usual dizer-se que dentro destas 3 restrições, apenas é possível escolher 2. Logo, pegando no exemplo anterior, muito provavelmente a empresa não estaria interessada em aumentar os custos do projeto, deixando duas opções, ou diminui-se consideravelmente a qualidade do código, ou diminui-se as funcionalidades requeridas, algo que, devido à restrição do tempo, pode também não ser suficiente para assegurar a qualidade. Assim sendo, tendo em conta que muitos dos clientes de uma empresa de desenvolvimento de software apenas querem que um problema esteja resolvido, não estando interessados na qualidade do código, esta acaba por cair para segundo plano. 
+
+\subsection{Conclusão}
+
+\Par Concluindo, \textit{Clean Code} é um conceito extremamente importante para reduzir os custos e tempo despendido na manutenção de um sistema a longo prazo mas, devido às prioridades do mundo empresarial face a um projeto, muitas das vezes estes princípios acabam por cair no esquecimento. Ainda assim, boas práticas como estas são fundamentais na aprendizagem de um desenvolvedor de software, garantido uma maior fiabilidade e robustez nos seus projetos futuros.
  
 \clearpage
 
@@ -354,6 +365,8 @@ public class Quadratic {
 [8] \url{https://www.hostgator.com.br/blog/clean-code-o-que-e/}
 
 [9] \url{https://www.butterfly.com.au/blog/website-development/clean-high-quality-code-a-guide-on-how-to-become-a-better-programmer}
+
+[11] \url{https://en.wikipedia.org/wiki/Project_management_triangle}
 
 [10] Martin, R. (2009). Clean code : a handbook of agile software craftsmanship. Upper Saddle River, NJ: Prentice Hall.
 

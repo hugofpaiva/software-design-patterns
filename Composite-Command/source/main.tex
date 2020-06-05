@@ -243,21 +243,19 @@ Ao utilizar os famosos atalhos para desfazer e refazer (\textit{ctrl+z e ctrl+sh
 
 \subsection{Problema}
 
-\par Foi proposta a criação de um labirinto em Java que deva permitir ao utilizador deslocar-se pelo caminho correto até ao ponto de chegada. Para além dos comandos normais de movimento, é pedido que também se permita desfazer essas ações. Para complementar, introduziu-se também um comando para mostrar o caminho até à solução do labirinto.
+\par Foi proposta a criação de um labirinto em Java que deva permitir ao utilizador deslocar-se pelo caminho correto até ao ponto de chegada. Para além dos comandos normais de movimento, é pedido que também se permita desfazer essas ações. Como complemento, é proposto também um comando para mostrar o caminho até à solução do labirinto.
 
 \subsection{Solução}
 
-\par Considerando que todas as ações que o utilizador pretende introduzir no sistema podem ser encapsuladas em objetos, fez todo o sentido aplicar o padrão \textit{Command}. Com a modelação do sistema desta forma, é também possível permitir a adição de um \textit{Logger}, para guardar os comandos feitos ao longo da execução e permitir desfazer as ações anteriores, como pedidos pelo problema, bem como voltar a executá-las, após as desfazer.
+\par Considerando que todas as ações que o utilizador pretende introduzir no sistema podem ser encapsuladas em objetos, fez todo o sentido aplicar o padrão \textit{Command}. Com a modelação do sistema desta forma, é também possível permitir a adição de um \textit{Logger}, para guardar os comandos feitos ao longo da execução e permitir desfazer as ações anteriores, como pedido pelo problema, bem como voltar a executá-las, após as desfazer.
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=300]{images/command/UML_Example.png}
+    \includegraphics[width=350]{images/command/UML_Example.png}
     \caption{Diagrama de classes da solução apresentada ao problema de exemplo do padrão \textit{Command}}
 \end{figure}
 
-\par De acordo com o diagrama de classes apresentado na Figura 5, a solução implementada apresenta uma interface \textbf{\textit{Command}}, a qual várias classes a implementam, consoante as ações suportadas pela aplicação, representado comandos. Apesar de se verificar que o \textit{Command} ocorre aqui, não é o único sítio onde é visível. Esta solução foi implementada com base num código\footnote{https://www.nku.edu/~foxr/CSC360/Programs/MazeWithGraphics.java} que trabalha com \textit{Java Abstract Window Toolkit (AWT)} e \textit{Java Swing} para criar a interface visual do labirinto, algo que não era o ponto-chave trabalho. A partir disto, foi utilizada a interface \textit{KeyListener} do \textit{Java AWT} para, sempre que o utilizador premisse uma tecla, fossem invocados os métodos da classe \textbf{\textit{KeyHandler}}. Aqui volta a ocorrer o \textit{Command}. Esta classe, posteriormente, dependendo das teclas premidas, utiliza os métodos dos objetos que representam cada comando para que estes, servindo de intermediários, utilizem os métodos da classe do labirinto \textbf{\textit{MazePanel}} para executar as ações. Além disso, guarda esses comando no \textbf{\textit{Logger}} para posteriormente suportar reversão de ações.
-
-\clearpage
+\par De acordo com o diagrama de classes apresentado na Figura 5, a solução implementada apresenta uma interface \textbf{\textit{Command}}, a qual várias classes a implementam, consoante as ações suportadas pela aplicação, representado comandos. Apesar de se verificar que o \textit{Command} ocorre aqui, não é o único sítio onde é visível. Esta solução foi implementada com base num código\footnote{https://www.nku.edu/~foxr/CSC360/Programs/MazeWithGraphics.java} que trabalha com \textit{Java Abstract Window Toolkit (AWT)} e \textit{Java Swing} para criar a interface visual do labirinto, algo que não era o ponto-chave trabalho. A partir disto, foi utilizada a interface \textit{KeyListener} do \textit{Java AWT} para, sempre que o utilizador premir uma tecla, fossem invocados os métodos da classe \textbf{\textit{KeyHandler}}. Aqui volta a ocorrer o \textit{Command}. Esta classe, posteriormente, dependendo das teclas premidas, utiliza os métodos dos objetos que representam cada comando para que estes, servindo de intermediários, utilizem os métodos da classe do labirinto \textbf{\textit{MazePanel}} para executar as ações. Além disso, guarda esses comando no \textbf{\textit{Logger}} para posteriormente suportar reversão de ações.
 
 \subsubsection{MazePanel}
 

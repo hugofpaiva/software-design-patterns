@@ -2,7 +2,7 @@ package exemplo_command;
 
 import java.util.ArrayList;
 
-// Logger vai permitir guardas as ações, em forma de objeto visto que estamos a usar o padrão command, 
+// Logger vai permitir guardar as ações, em forma de objeto, visto que estamos a usar o padrão command, 
 // para posteriormente ser possível desfazer ou refazer uma determinada ação
 public class Logger {
 	private ArrayList<Command> actions = new ArrayList<Command>();

@@ -23,7 +23,7 @@ public class District extends Place {
 		this.cityName = cityName;
 
 		locationKey = getUrl(
-				"http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt&q="
+				"http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=ZUFvZd5mUT5kZuQB9W8gqxARTPGUfk71&language=pt-pt&q="
 						+ cityName).get("Key").toString();
 
 	}
@@ -33,7 +33,7 @@ public class District extends Place {
 	public void getWeather() throws IOException, ParseException {
 		System.out.println("Tempo atual da localidade composta " + cityName + ":");
 		System.out.print(getUrl("http://dataservice.accuweather.com/currentconditions/v1/" + locationKey
-				+ "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt").get("WeatherText").toString());
+				+ "?apikey=ZUFvZd5mUT5kZuQB9W8gqxARTPGUfk71&language=pt-pt").get("WeatherText").toString()+"\n");
 
 		for (Place pl : places) {
 			pl.getWeather();
@@ -46,9 +46,9 @@ public class District extends Place {
 	public void getTemperature() throws IOException, ParseException {
 		System.out.println("Temperatura atual da localidade composta " + cityName + ":");
 		System.out.print(((JSONObject) ((JSONObject) getUrl("http://dataservice.accuweather.com/currentconditions/v1/"
-				+ locationKey + "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt").get("Temperature"))
+				+ locationKey + "?apikey=ZUFvZd5mUT5kZuQB9W8gqxARTPGUfk71&language=pt-pt").get("Temperature"))
 						.get("Metric")).get("Value").toString()
-				+ "ºC");
+				+ "ºC\n");
 		for (Place pl : places) {
 			pl.getTemperature();
 		}
@@ -59,7 +59,7 @@ public class District extends Place {
 	@Override
 	public void getPrecipitationSummary() throws IOException, ParseException {
 		JSONObject precipitation = (JSONObject) getUrl("http://dataservice.accuweather.com/currentconditions/v1/"
-				+ locationKey + "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt&details=true&details=true")
+				+ locationKey + "?apikey=ZUFvZd5mUT5kZuQB9W8gqxARTPGUfk71&language=pt-pt&details=true&details=true")
 						.get("PrecipitationSummary");
 		System.out.println("Resumo da precipitação da localidade composta " + cityName + ":");
 		System.out.println("   Atual - "

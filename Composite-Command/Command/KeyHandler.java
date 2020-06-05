@@ -73,7 +73,7 @@ public class KeyHandler implements KeyListener {
 		case 90: // código correspondete ao Z
 			if (keyboard == 157) // No caso de ser Command+Z
 				log.unExecute();
-			else if (keyboard == 173) // No caso de ser Command+SHIT+Z
+			else if (keyboard == 173) // No caso de ser Command+SHIFT+Z
 				log.execute();
 			break;
 		default:

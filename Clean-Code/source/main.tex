@@ -118,25 +118,25 @@ showstringspaces=false}
 \section{Clean Code}
 \subsection{Introdução}
 
-\par \textit{Clean Code} é o conceito de um código fácil de entender e susceptível a mudanças que ganhou relevância em 2008, quando \textit{Robert Cecil Martin} o mostrou ao mundo através do seu livro \textit{Clean Code: A Handbook of Agile Software Craftsmanship}. Nesse livro, \textit{Robert} apresenta ao detalhe as técnicas e princípio ideais para o desenvolvimento de software de fácil compreensão.
+\par \textit{Clean Code} é o conceito de um código fácil de entender e susceptível a mudanças que ganhou relevância em 2008, quando \textit{Robert Cecil Martin} o mostrou ao mundo através do seu livro \textit{Clean Code: A Handbook of Agile Software Craftsmanship}. Neste livro, \textit{Robert} apresenta ao detalhe as técnicas e princípio ideais para o desenvolvimento de software de fácil compreensão.
 
 \par Um sistema é algo que nunca está terminado, que necessita sempre de ser atualizado, quer seja devido à implementação de novas funcionalidade, resolução de problemas ou, até, devido a se ter tornado obsoleto. Ao longo destes ciclos de desenvolvimento, de modo a reduzir os custos de manutenção, é imperial a utilização de código limpo. Uma fraca qualidade de código leva a uma grande carga cognitiva, sendo necessárias mais horas de trabalho para a resolução de problemas. O problema 
 é tão relevante que o livro refere um rácio de 10 leituras de código até começar a escrita.
 
-\par Um código limpo é, portanto, algo que leva tempo, atenção e dedicação, a mesma razão pela qual muitas das vezes não é utilizado na indústria. 
+\par Um código limpo é, portanto, algo que leva tempo, atenção e dedicação mas que tem resultados visíveis.
 
 \subsection{Princípios e Boas Práticas}
 
 \par Estando profundamente associado à complexidade de um sistema, ou seja, quanto mais limpo está o código, menos complexidade o sistema tem, é natural que o estudo dos sintomas desta complexidade seja um fator relevante para a escrita de um código limpo. 
 
-\par Com isto em mente, \textit{Robert} definiu alguns princípios e boas práticas para chegar ao conceito de \textit{Clean Code}.  De entre os referidos no livro, destacaram-se os seguintes:
+\par Com isto em mente, \textit{Robert} definiu alguns princípios e boas práticas para chegar ao conceito de \textit{Clean Code}, tendo em conta toda a sua experiência em programação desde os anos 70.  De entre os referidos no livro, destacaram-se os seguintes:
 
 \begin{itemize}
     \item Nomes Significativos
     \item Organização de Funções
     \item Organização das Classes e Estruturas de Dados
     \item Comentários Expressivos
-    \item Formatação do Código
+    \item Formatação de Código
     \item Tratamento de Erros
     \item Testes Limpos
 \end{itemize}
@@ -181,7 +181,7 @@ for (int l=0; l<NUMBER_OF_FRUITS; l++) {
 }
 \end{lstlisting}
 
-\par Existem, no entanto, outros aspetos que devem ser tido em consideração. Evitar símbolos e emojis, utilizar nomes pronunciáveis, utilizar verbos em métodos e nomes em classes e utilizar sempre as mesmas palavras para um determinado contexto (escolher get ao invés de fetch) são alguns destes aspetos.
+\par Existem, no entanto, outros aspetos que devem ser tido em consideração. Evitar símbolos e emojis, utilizar nomes de facil pronunciação, utilizar verbos em métodos e nomes em classes e utilizar sempre as mesmas palavras para um determinado contexto (utilizar sempre get ao invés de fetch) são alguns destes aspetos.
 
 \subsubsection{Organização de Funções}
 
@@ -194,20 +194,106 @@ for (int l=0; l<NUMBER_OF_FRUITS; l++) {
 
 \par O objetivo com este trocadilho de regras é manter as funções com o mínimo de funcionalidades possíveis, permitindo uma menor complexidade ao longo do programa e, utilizando os nomes significativos, o código deverá estar organizado de maneira a que qualquer pessoa consiga ver todos os percursos ao longo da execução do programa facilmente. Aliás, durante o livro, é referido que as funções apenas devem fazer uma coisa.
 
-\par Deve-se, também, utilizar menos argumentos, evitando, novamente, o aumento de complexidade. 
+\par Deve-se, também, utilizar menos argumentos, evitando, novamente, o aumento de complexidade:
 \begin{lstlisting}
 Circle makeCircle(Point center, double radius);
 \end{lstlisting}
 
-\par A declaração desta função é, sem dúvida, mais clara que a seguinte.
+\par A declaração desta função é, sem dúvida, mais clara que a seguinte:
 
 \begin{lstlisting}
 Circle makeCircle(double x, double y, double radius);
 \end{lstlisting}
 
-\par Basicamente, continua a tendência de manter a menor complexidade possível, evitando efeitos secundários para além do objetivo das funções, repetições de código, \textit{output} de vários argumentos e utilizar tratamento de erros.
+\par Basicamente, continua-se a tendência de manter a menor complexidade possível, evitando efeitos secundários para além do objetivo das funções, repetições de código (DRY -Don’t Repeat Yourself), \textit{output} de vários argumentos mas utilizando tratamento de erros.
 
-\subsection{Organização das Classes e Estruturas de Dados}
+\clearpage
+
+\subsubsection{Organização das Classes e Estruturas de Dados}
+
+\par As classes devem manter-se pequenas e respeitar ao máximo princípios como o da \textit{Single Responsibility Principle} e \textit{Open-Closed Principle}, mantendo apenas uma responsabilidade e permitindo extensões mas não modificações, novamente, devido à complexidade. 
+
+\par Como consequência, todas as variáveis devem manter-se privadas ou, no máximo, \textit{protected}, de modo a permitir testes. A abstração dos dados passa a ser uma prioridade com a criação de interfaces mais concisas, passando, por exemplo, de:
+
+\begin{lstlisting}
+public interface Phone {
+    double getBatteryCapacityInMah();
+    double getMahOfEnergyRemaing();
+}
+\end{lstlisting}
+
+\par Para:
+
+\begin{lstlisting}
+public interface Phone {
+    double getPercentBatteryRemaining();
+}
+\end{lstlisting}
+
+\par Toda a comunicação entre classes deve também ser reduzida, comunicando apenas com as que se relacionam de alguma forma como por exemplo, com objetos criados em seus métodos, com outros objetos passados como argumentos, etc.
+
+\subsubsection{Comentários Expressivos}
+
+\par Apesar dos comentários serem uma parte importante da legibilidade do código, é também relevante verificar se estes se justificam:
+
+
+\begin{lstlisting}
+// Verificar se o carro ja deixou de pagar IUC em Portugal
+if (car.age>25 || (car.eletric == true))...
+\end{lstlisting}
+
+\par Neste caso, os comentários não são necessário. A abordagem mais correta seria algo deste género:
+
+\begin{lstlisting}
+if (!car.paysIuc())...
+\end{lstlisting}
+
+\Par A partir deste exemplo, é possível chegar à conclusão que um \textit{Clean Code} não precisa realmente de comentário, o código deve ser auto explicativo. Ainda assim, caso seja necessário a utilização de comentários, estes devem ser claros, informativos e dar ênfase aos pontos importantes e nunca deixar código comentado em ambientes de produção.
+
+\subsubsection{Formatação de Código}
+
+\par Sem formatação de código, este passaria a ser praticamente impossível de ler pelos desenvolvedores. Deve-se ter em atenção a formatação na vertical como na horizonta no entanto, é necessário identificar os casos onde esta é necessário.
+
+\begin{lstlisting}
+public class Energy{
+  private    Socket        socket;
+  private    InputStrea    input;
+
+  public Discharge(Socket          s,
+                           FitNesseContext context) throws Exception
+  {
+    this.context = context;
+    input =        s.getInputStream();
+  }
+}
+\end{lstlisting}
+
+\Par Num caso destes, não faz sentido aplicar o alinhamento horizontal pois este dificulta a leitura dos tipos de dados bem como de outras informações relevantes.
+
+\begin{lstlisting}
+public class FitNesseExpediter implements ResponseSender
+{
+  private Socket socket;
+  private InputStream input;
+
+  public FitNesseExpediter(Socket s, FitNesseContext context) throws Exception {
+    this.context = context;
+    input = s.getInputStream();
+  }
+}
+\end{lstlisting}
+
+\Par Por outro lado, a formatação é muito vantajosa para para perceber em que contexto certas funções e variáveis estão, devido à profundidade no código, com recurso a espaços antes de si:
+
+\begin{lstlisting}
+public class Quadratic {
+ public static double root1(double a, double b, double c) {
+   double determinant = determinant(a, b, c);
+   return (-b + Math.sqrt(determinant)) / (2*a);
+ }
+\end{lstlisting}
+
+\subsection{Tratamento de Erros}
 
 \clearpage
 
@@ -237,7 +323,7 @@ Circle makeCircle(double x, double y, double radius);
 
 [9] \url{https://www.butterfly.com.au/blog/website-development/clean-high-quality-code-a-guide-on-how-to-become-a-better-programmer}
 
-
+[10] Martin, R. (2009). Clean code : a handbook of agile software craftsmanship. Upper Saddle River, NJ: Prentice Hall.
 
 
 

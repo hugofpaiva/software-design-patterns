@@ -33,6 +33,25 @@
 % Prevents LaTeX from filling out a page to the bottom
 \raggedbottom
 
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\footnotesize\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
 
 \usepackage{fancyhdr}
 \fancyhf{} 
@@ -97,13 +116,98 @@
 \clearpage
 
 \section{Clean Code}
-\subsection{Descrição}
-\par
+\subsection{Introdução}
+
+\par \textit{Clean Code} é o conceito de um código fácil de entender e susceptível a mudanças que ganhou relevância em 2008, quando \textit{Robert Cecil Martin} o mostrou ao mundo através do seu livro \textit{Clean Code: A Handbook of Agile Software Craftsmanship}. Nesse livro, \textit{Robert} apresenta ao detalhe as técnicas e princípio ideais para o desenvolvimento de software de fácil compreensão.
+
+\par Um sistema é algo que nunca está terminado, que necessita sempre de ser atualizado, quer seja devido à implementação de novas funcionalidade, resolução de problemas ou, até, devido a se ter tornado obsoleto. Ao longo destes ciclos de desenvolvimento, de modo a reduzir os custos de manutenção, é imperial a utilização de código limpo. Uma fraca qualidade de código leva a uma grande carga cognitiva, sendo necessárias mais horas de trabalho para a resolução de problemas. O problema 
+é tão relevante que o livro refere um rácio de 10 leituras de código até começar a escrita.
+
+\par Um código limpo é, portanto, algo que leva tempo, atenção e dedicação, a mesma razão pela qual muitas das vezes não é utilizado na indústria. 
+
+\subsection{Princípios e Boas Práticas}
+
+\par Estando profundamente associado à complexidade de um sistema, ou seja, quanto mais limpo está o código, menos complexidade o sistema tem, é natural que o estudo dos sintomas desta complexidade seja um fator relevante para a escrita de um código limpo. 
+
+\par Com isto em mente, \textit{Robert} definiu alguns princípios e boas práticas para chegar ao conceito de \textit{Clean Code}.  De entre os referidos no livro, destacaram-se os seguintes:
+
+\begin{itemize}
+    \item Nomes Significativos
+    \item Organização de Funções
+    \item Organização das Classes e Estruturas de Dados
+    \item Comentários Expressivos
+    \item Formatação do Código
+    \item Tratamento de Erros
+    \item Testes Limpos
+\end{itemize}
+
+\subsubsection{Nomes Significativos}
+
+\par Tal como o próprio princípio diz, os nomes devem ser significativos e de grande importância para manter um código compreensível. Independentemente do tipo de nome (funções, variáveis, métodos, etc.), segundo este princípio, os nomes devem seguir dois pontos principais:
+
+\begin{itemize}
+    \item Ir diretos ao ponto, passando a sua ideia central
+    \item Em caso de necessidade, utilizar nomes grandes sem preocupações, garantindo a sua compreensão
+\end{itemize}
 
 \clearpage
 
+\par Dito isto, são de evitar exemplos deste tipo, onde é pouco perceptível qual o contexto do problema:
 
+\begin{lstlisting}
+int[] f; // frutas
+\end{lstlisting}
 
+\begin{lstlisting}
+for (int l=0; l<50; l++) {
+	if (f[l] == 1) {
+	    f[l] = 2;
+	}
+}
+\end{lstlisting}
+
+\par Ao invés, deve-se utilizar abordagens do género:
+
+\begin{lstlisting}
+int fruitsAtHome;
+\end{lstlisting}
+
+\begin{lstlisting}
+final int NUMBER_OF_FRUITS = 50;
+for (int l=0; l<NUMBER_OF_FRUITS; l++) {
+	if (fruitsAtHome[l] == ROTTEN) {
+	    fruitsAtHome[l] = TRASH;
+	}
+}
+\end{lstlisting}
+
+\par Existem, no entanto, outros aspetos que devem ser tido em consideração. Evitar símbolos e emojis, utilizar nomes pronunciáveis, utilizar verbos em métodos e nomes em classes e utilizar sempre as mesmas palavras para um determinado contexto (escolher get ao invés de fetch) são alguns destes aspetos.
+
+\subsubsection{Organização de Funções}
+
+\par Segundo o autor deste conceito, existem duas regras para a criação das funções:
+
+\begin{itemize}
+    \item As funções devem ser pequenas
+    \item As funções devem ser ainda mais pequenas
+\end{itemize}
+
+\par O objetivo com este trocadilho de regras é manter as funções com o mínimo de funcionalidades possíveis, permitindo uma menor complexidade ao longo do programa e, utilizando os nomes significativos, o código deverá estar organizado de maneira a que qualquer pessoa consiga ver todos os percursos ao longo da execução do programa facilmente. Aliás, durante o livro, é referido que as funções apenas devem fazer uma coisa.
+
+\par Deve-se, também, utilizar menos argumentos, evitando, novamente, o aumento de complexidade. 
+\begin{lstlisting}
+Circle makeCircle(Point center, double radius);
+\end{lstlisting}
+
+\par A declaração desta função é, sem dúvida, mais clara que a seguinte.
+
+\begin{lstlisting}
+Circle makeCircle(double x, double y, double radius);
+\end{lstlisting}
+
+\par Basicamente, continua a tendência de manter a menor complexidade possível, evitando efeitos secundários para além do objetivo das funções, repetições de código, \textit{output} de vários argumentos e utilizar tratamento de erros.
+
+\subsection{Organização das Classes e Estruturas de Dados}
 
 \clearpage
 
@@ -126,6 +230,12 @@
 [5] \url{https://simpleprogrammer.com/clean-code-principles-better-programmer/}
 
 [6] \url{https://x-team.com/blog/principles-clean-code/}
+
+[7] \url{https://codingsans.com/blog/clean-code}
+
+[8] \url{https://www.hostgator.com.br/blog/clean-code-o-que-e/}
+
+[9] \url{https://www.butterfly.com.au/blog/website-development/clean-high-quality-code-a-guide-on-how-to-become-a-better-programmer}
 
 
 

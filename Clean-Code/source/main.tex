@@ -130,15 +130,15 @@ showstringspaces=false}
 \par Estando profundamente associado à complexidade de um sistema, ou seja, quanto mais limpo está o código, menos complexidade o sistema tem, é natural que o estudo dos sintomas desta complexidade seja um fator relevante para a escrita de um código limpo. 
 
 \par Com isto em mente, \textit{Robert} definiu alguns princípios e boas práticas para chegar ao conceito de \textit{Clean Code}, tendo em conta toda a sua experiência em programação desde os anos 70.  De entre os referidos no livro, destacaram-se os seguintes:
-
+SOLUCIONA A MANUTENÇÃO
 \begin{itemize}
-    \item Nomes Significativos
-    \item Organização de Funções
-    \item Organização das Classes e Estruturas de Dados
-    \item Comentários Expressivos
-    \item Formatação de Código
-    \item Tratamento de Erros
-    \item Testes Limpos
+    \item \textbf{Nomes Significativos}
+    \item \textbf{Organização de Funções}
+    \item \textbf{Organização das Classes e Estruturas de Dados}
+    \item \textbf{Comentários Expressivos}
+    \item \textbf{Formatação de Código}
+    \item \textbf{Tratamento de Erros}
+    \item \textbf{Testes Limpos}
 \end{itemize}
 
 \subsubsection{Nomes Significativos}
@@ -293,8 +293,40 @@ public class Quadratic {
  }
 \end{lstlisting}
 
-\subsection{Tratamento de Erros}
+\subsubsection{Tratamento de Erros}
 
+\Par Tendo em conta que os erros no desenvolvimento de software são recorrentes, é dever dos programadores preparar os seus programas para lidar com eles mas, de forma clara, de modo a manter a limpeza do código.
+
+\Par É aconselhada a utilização de exceções ao invés de \textit{returns}, principalmente devido à sua lógica (\textit{bug}) não ser escondida. Caso este seja utilizado, nunca se deve retornar \textit{null} pois teremos que lidar com ele, o que gera ainda mais problemas. 
+
+\par Um código limpo tem, portanto, de apresentar robustez logo, deve ser garantida a consistência do programa mesmo quando os erros acontecem.
+
+\subsubsection{Testes Limpos}
+
+\Par Um código só é considerado limpo após passar uma séries de testes, também estes limpos.
+
+\Par As principais regras que estes testes têm de seguir são de acordo com o acrónimo F.I.R.S.T:
+
+\begin{itemize}
+    \item \textbf{Fast} - Devem ser rápidos, permitindo a sua execução múltiplas vezes vezes
+    \item \textbf{Independent} - Devem ser independentes, evitando erros em cascata
+    \item \textbf{Repeatable} - Devem permitir a repetição do teste em qualquer ambiente (num portátil, sem internet...)
+    \item \textbf{Self-Validating} - Devem retornar um \textit{boolean} para permitir saber eficazmente o resultado do teste
+    \item \textbf{Timely} - Devem ser escritos antes do código, facilitando a sua execução no código e pontuais
+\end{itemize}
+
+\clearpage
+
+\subsection{Clean Code aplicado no Mundo}
+
+\Par Como já foi referido, um código limpo é algo que leva tempo, atenção e dedicação, algo que o sector empresarial não se interessa tanto. Como consequência, o código limpo acaba por ser a qualidade no triângulo da gestão de um projeto.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=200]{images/quality-triangle.jpg}
+    \caption{Representação do triângulo da gestão de um projeto}
+\end{figure}
+ 
 \clearpage
 
 \section{Bibliografia}

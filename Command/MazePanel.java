@@ -4,9 +4,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class MazePanel extends JPanel // need a JPanel for Graphics
-{
-	private int[][] maze = { // initialize the maze 2D array
+public class MazePanel extends JPanel {
+	private int[][] maze = { // Criado de forma estática para mais facil visualização do labirinto antes de
+								// executar
 			{ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 },
 			{ 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0 },
@@ -32,28 +32,29 @@ public class MazePanel extends JPanel // need a JPanel for Graphics
 			{ 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0 },
 			{ 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 2, 0, 0 } };
 
-	private int size, start, end; // start and end are used in paintComponent to denote the starting point in a
-									// different color
+	private int size, x, y; // Size corresponde ao tamanho do labirinto, x à posição do jogador no eixo
+							// horizontal e y à posição do jogador no eixo vertical
 
+	// Criação do labirinto
 	public MazePanel() {
-		size = 24; // size of rows/columns of the maze
-		start = 0;
-		end = 5;
-		// solve(maze,start,end,size); // start the recursive call starting at
-		// coordinate 0,5, use size to ensure that we don't go beyond the bounds of the
-		// array
-		repaint(); // invoke paintComponent to output the final maze
+		size = 24;
+		x = 0;
+		y = 5;
+		repaint();
 
 	}
 
+	// Soluciona o labirinto criando um caminho desde a posição do jogador até à
+	// posição final
 	public void autoSolve() {
-		if (solve(maze, start, end, size)) {
+		if (solve(maze, x, y, size)) {
 			System.out.println("Labirinto concluído demasiado facilmente 😎");
 		} else {
 			System.out.println("Não consegui resolver o labirinto 😢");
 		}
 	}
 
+// Desfaz a solução do labirinto
 	public void unSolve() {
 		for (int i = 0; i < maze.length; i++)
 			for (int j = 0; j < maze[0].length; j++)
@@ -62,89 +63,85 @@ public class MazePanel extends JPanel // need a JPanel for Graphics
 				}
 	}
 
-	private boolean solve(int[][] m, int x, int y, int s) // m is the maze, x, y the current coordinate, s the upper
-															// bound of the 2D array
+	private boolean solve(int[][] m, int x, int y, int s) // m é o labirinto, x, y as coordenadas atuais e s os limites
+															// máximos do labirinto
 	{
 		if (x >= s || x < 0 || y >= s || y < 0)
-			return false; // if out of bounds, return false
+			return false; // Fora dos limites
 		else if (m[x][y] == 3)
-			return false; // if we reach a 3, we've tried that path already so we are in a loop, return
-							// false
+			return false; // Entrou-se num loop
 		else if (m[x][y] == 2) {
-			return true; // if we reach a 2 then we found the solution, return true
+			return true; // Encontrou-se a solução
 		} else if (m[x][y] == 0)
-			return false; // if we reach a 0, we hit a wall, return false
+			return false; // Encontrou-se uma parede
 		else {
-			m[x][y] = 3; // assume this is the right path, set this location to 3 to record where we are
+			m[x][y] = 3; // Estamos no caminho certo, guardamos esta coordenado com valor 3 para
+							// sinalizar isso mesmo
+			// A partir daqui tenta-se resolver, recursivamente, para todos os 4 lados
+			// possíveis
 			if (solve(m, x + 1, y, s))
-				return true; // recursive try to solve from this point forward by trying down, up, right then
-								// left
+				return true;
 			if (solve(m, x - 1, y, s))
-				return true; // we try the next location from x,y if the previous one was not true (that is,
-								// did not lead to a solution)
+				return true;
 			if (solve(m, x, y + 1, s))
 				return true;
 			if (solve(m, x, y - 1, s))
 				return true;
-			m[x][y] = 1; // starting at x,y, we could not find a way out, so reset this location to 1 and
-							// return false
+			m[x][y] = 1; // No caso de não se ter encontrado nenhum caminho, voltamos a colocar o valor 1
 			return false;
 		}
 	}
 
 	private void checkPosition() {
-		if (start >= size || start < 0 || end >= size || end < 0) {
-			// if out of bounds, return false
-			start = 0;
-			end = 5;
-		}
-
-		else if (maze[start][end] == 2) {
-			// if we reach a 2 then we found the solution, return true
-			start = 0;
-			end = 5;
-		} else if (maze[start][end] == 0) {
-			// if we reach a 0, we hit a wall, return false
-			start = 0;
-			end = 5;
+		// Verificação se batemos em alguma parede, saímos fora dos limites do jogo ou
+		// terminámos o jogo. Voltamos para o início em caso afirmativo
+		if (x >= size || x < 0 || y >= size || y < 0) {
+			x = 0;
+			y = 5;
+		} else if (maze[x][y] == 2) {
+			x = 0;
+			y = 5;
+		} else if (maze[x][y] == 0) {
+			x = 0;
+			y = 5;
 		}
 	}
 
-	public void paintComponent(Graphics g) // draw the maze with solution
-	{
+	// Desenha o labirinto
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (int j = 0; j < size; j++) // iterate through all i,j locations in the maze
+		for (int j = 0; j < size; j++) 
 			for (int i = 0; i < size; i++) {
-				if (i == start && j == end)
-					g.setColor(Color.yellow); // starting point in yellow
+				if (i == x && j == y)
+					g.setColor(Color.yellow); // Ponto de início
 				else if (maze[i][j] == 0)
-					g.setColor(Color.white); // walls are white
+					g.setColor(Color.white); // Paredes
 				else if (maze[i][j] == 1)
-					g.setColor(Color.black); // path is black
+					g.setColor(Color.black); // Caminho
 				else if (maze[i][j] == 2)
-					g.setColor(Color.red); // ending point is red
+					g.setColor(Color.red); // Chegada
 				else
-					g.setColor(Color.blue); // solution is blue
-				g.fillRect(i * 20, j * 20, 20, 20); // draw each part of the maze using the above set color
+					g.setColor(Color.blue); // Caminho da solução
+				g.fillRect(i * 20, j * 20, 20, 20);
 			}
 	}
 
-	public int getStart() {
-		return start;
+	public int getX() {
+		return x;
 	}
 
-	public void setStart(int start) {
-		this.start = start;
+	public void setX(int x) {
+		this.x = x;
 		checkPosition();
 		repaint();
 	}
 
-	public int getEnd() {
-		return end;
+	public int getY() {
+		return y;
 	}
 
-	public void setEnd(int end) {
-		this.end = end;
+	public void setY(int y) {
+		this.y = y;
 		checkPosition();
 		repaint();
 	}

@@ -15,41 +15,44 @@ public class Locality extends Place {
 	private String cityName;
 	private String locationKey;
 
-	// Criação da classe District onde é definida o nome do District e é guardada a
+	// Criação da classe Locality onde é definido o nome da Locality e é guardada a
 	// locationKey para chamadas à API futuras
 	public Locality(String cityName) throws IOException, ParseException {
 		this.cityName = cityName;
 
 		locationKey = getUrl(
-				"http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt&q="
+				"http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt&q="
 						+ cityName).get("Key").toString();
 
 	}
 
+	// Obtém o tempo atual desta localidade singular
 	@Override
 	public void getWeather() throws IOException, ParseException {
-		System.out.println("Tempo atual da localidade " + cityName + ":");
+		System.out.println("Tempo atual da localidade singular " + cityName + ":");
 		System.out.println(getUrl("http://dataservice.accuweather.com/currentconditions/v1/" + locationKey
-				+ "?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt").get("WeatherText").toString());
+				+ "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt").get("WeatherText").toString());
 
 	}
 
+	// Obtém a temperatura atual desta localidade singular
 	@Override
 	public void getTemperature() throws IOException, ParseException {
-		System.out.println("Temperatura atual da localidade " + cityName + ":");
+		System.out.println("Temperatura atual da localidade singular " + cityName + ":");
 		System.out.println(((JSONObject) ((JSONObject) getUrl("http://dataservice.accuweather.com/currentconditions/v1/"
-				+ locationKey + "?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt").get("Temperature"))
+				+ locationKey + "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt").get("Temperature"))
 						.get("Metric")).get("Value").toString()
 				+ "ºC");
 
 	}
 
+	// Obtém o sumário da preciptação das últimas 24 horas desta localidade singular
 	@Override
 	public void getPrecipitationSummary() throws IOException, ParseException {
 		JSONObject precipitation = (JSONObject) getUrl("http://dataservice.accuweather.com/currentconditions/v1/"
-				+ locationKey + "?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt&details=true&details=true")
+				+ locationKey + "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt&details=true&details=true")
 						.get("PrecipitationSummary");
-		System.out.println("Resumo da precipitação da localidade " + cityName + ":");
+		System.out.println("Resumo da precipitação da localidade singular " + cityName + ":");
 		System.out.println("   Atual - "
 				+ ((JSONObject) ((JSONObject) precipitation.get("Precipitation")).get("Metric")).get("Value").toString()
 				+ "mm");
@@ -76,6 +79,7 @@ public class Locality extends Place {
 				+ "mm");
 	}
 
+	// Função que faz os pedidos à API, consoante o url lhe introduzido
 	public JSONObject getUrl(String url) throws IOException, ParseException {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();

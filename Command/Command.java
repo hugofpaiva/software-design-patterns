@@ -1,11 +1,13 @@
 package exemplo_command;
 
+// Interface que implementa o padrão Command
 public interface Command {
 	public void execute();
 
 	public void unexecute();
 }
 
+// Comando que permite ir para a direita
 class GoRightCommand implements Command {
 	private MazePanel mp;
 
@@ -15,19 +17,20 @@ class GoRightCommand implements Command {
 
 	@Override
 	public void execute() {
-		mp.setStart(mp.getStart() + 1);
+		mp.setX(mp.getX() + 1);
 		mp.repaint();
 
 	}
 
 	@Override
 	public void unexecute() {
-		mp.setStart(mp.getStart() - 1);
+		mp.setX(mp.getX() - 1);
 		mp.repaint();
 
 	}
 }
 
+//Comando que permite ir para a esquerda
 class GoLeftCommand implements Command {
 	private MazePanel mp;
 
@@ -37,19 +40,20 @@ class GoLeftCommand implements Command {
 
 	@Override
 	public void execute() {
-		mp.setStart(mp.getStart() - 1);
+		mp.setX(mp.getX() - 1);
 		mp.repaint();
 
 	}
 
 	@Override
 	public void unexecute() {
-		mp.setStart(mp.getStart() + 1);
+		mp.setX(mp.getX() + 1);
 		mp.repaint();
 
 	}
 }
 
+//Comando que permite ir para cima
 class GoUpCommand implements Command {
 	private MazePanel mp;
 
@@ -60,19 +64,20 @@ class GoUpCommand implements Command {
 
 	@Override
 	public void execute() {
-		mp.setEnd(mp.getEnd() + 1);
+		mp.setY(mp.getY() + 1);
 		mp.repaint();
 
 	}
 
 	@Override
 	public void unexecute() {
-		mp.setEnd(mp.getEnd() - 1);
+		mp.setY(mp.getY() - 1);
 		mp.repaint();
 
 	}
 }
 
+//Comando que permite ir para baixo
 class GoDownCommand implements Command {
 	private MazePanel mp;
 
@@ -82,19 +87,20 @@ class GoDownCommand implements Command {
 
 	@Override
 	public void execute() {
-		mp.setEnd(mp.getEnd() - 1);
+		mp.setY(mp.getY() - 1);
 		mp.repaint();
 
 	}
 
 	@Override
 	public void unexecute() {
-		mp.setEnd(mp.getEnd() + 1);
+		mp.setY(mp.getY() + 1);
 		mp.repaint();
 
 	}
 }
 
+//Comando que permite resolver o labirinto
 class SolveItCommand implements Command {
 	private MazePanel mp;
 

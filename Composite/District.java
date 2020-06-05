@@ -17,50 +17,51 @@ public class District extends Place {
 	private String locationKey;
 	ArrayList<Place> places = new ArrayList<Place>();
 
-	// Criação da classe District onde é definida o nome do District e é guardada a
+	// Criação da classe District onde é definida o nome da localidade composta e é guardada a
 	// locationKey para chamadas à API futuras
 	public District(String cityName) throws IOException, ParseException {
 		this.cityName = cityName;
 
 		locationKey = getUrl(
-				"http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt&q="
+				"http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt&q="
 						+ cityName).get("Key").toString();
 
 	}
 
+	// Obtém o tempo atual desta localidade composta
 	@Override
 	public void getWeather() throws IOException, ParseException {
-		System.out.println("Tempo atual do distrito " + cityName + ":");
-		System.out.println(getUrl("http://dataservice.accuweather.com/currentconditions/v1/" + locationKey
-				+ "?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt").get("WeatherText").toString());
+		System.out.println("Tempo atual da localidade composta " + cityName + ":");
+		System.out.print(getUrl("http://dataservice.accuweather.com/currentconditions/v1/" + locationKey
+				+ "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt").get("WeatherText").toString());
 
 		for (Place pl : places) {
-			System.out.print("   ");
 			pl.getWeather();
 		}
 
 	}
 
+	// Obtém a temperatura atual desta localidade composta
 	@Override
 	public void getTemperature() throws IOException, ParseException {
-		System.out.println("Temperatura atual do distrito " + cityName + ":");
-		System.out.println(((JSONObject) ((JSONObject) getUrl("http://dataservice.accuweather.com/currentconditions/v1/"
-				+ locationKey + "?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt").get("Temperature"))
+		System.out.println("Temperatura atual da localidade composta " + cityName + ":");
+		System.out.print(((JSONObject) ((JSONObject) getUrl("http://dataservice.accuweather.com/currentconditions/v1/"
+				+ locationKey + "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt").get("Temperature"))
 						.get("Metric")).get("Value").toString()
 				+ "ºC");
 		for (Place pl : places) {
-			System.out.print("   ");
 			pl.getTemperature();
 		}
 
 	}
 
+	// Obtém o sumário da preciptação das últimas 24 horas desta localidade composta
 	@Override
 	public void getPrecipitationSummary() throws IOException, ParseException {
 		JSONObject precipitation = (JSONObject) getUrl("http://dataservice.accuweather.com/currentconditions/v1/"
-				+ locationKey + "?apikey=IamHJGhV2E6mUAQYZnI8rufee5w8z71c&language=pt-pt&details=true&details=true")
+				+ locationKey + "?apikey=LyJhhthYD4QTGrw7s1KeaST8LwKg4lx2&language=pt-pt&details=true&details=true")
 						.get("PrecipitationSummary");
-		System.out.println("Resumo da precipitação do distrito " + cityName + ":");
+		System.out.println("Resumo da precipitação da localidade composta " + cityName + ":");
 		System.out.println("   Atual - "
 				+ ((JSONObject) ((JSONObject) precipitation.get("Precipitation")).get("Metric")).get("Value").toString()
 				+ "mm");
@@ -86,11 +87,12 @@ public class District extends Place {
 				+ ((JSONObject) ((JSONObject) precipitation.get("Past24Hours")).get("Metric")).get("Value").toString()
 				+ "mm");
 		for (Place pl : places) {
-			System.out.print("   ");
 			pl.getPrecipitationSummary();
 		}
 	}
 
+	
+	// Função que faz os pedidos à API, consoante o url lhe introduzido
 	public JSONObject getUrl(String url) throws IOException, ParseException {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -127,12 +129,10 @@ public class District extends Place {
 
 	public void add(Place p) {
 		places.add(p);
-
 	}
 
-	public void remove(String cityname) {
-		// Novo método do Java 8, estilo JavaScript
-		places.removeIf(obj -> obj.cityName.equals(cityName));
+	public void remove(Place p) {
+		places.remove(p);
 	}
 
 }

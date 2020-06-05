@@ -121,7 +121,7 @@ showstringspaces=false}
 \subsection{Descrição}
 \par \textit{Composite} pertence aos padrões de desenho de software estrutural, dando, portanto, conselhos relacionados com a composição de classes e/ou objetos.
 
-\par Todos os problemas que podem ser modelados em estruturas em árvore são potenciais candidatos para este padrão de software no entanto, \textit{Composite} resolve especialmente os problemas em que se pretende que o objeto composto\footnote{Um objeto composto é constituído por, além de si próprio, vários outros objetos da mesma classe, independentemente do tipo (composto ou singular)} seja manipulado de forma diferente que um objeto singular sem que o cliente se aperceba. 
+\par Todos os problemas que podem ser modelados em estruturas em árvore são potenciais candidatos para este padrão de software no entanto, \textit{Composite} resolve especialmente os problemas em que se pretende que o objeto composto\footnote{Um objeto composto é constituído por, além de si próprio, vários outros objetos que implementam a mesma interface ou estendem a mesma classe, independentemente do tipo (composto ou singular)} seja manipulado de forma diferente que um objeto singular sem que o cliente se aperceba. 
 
 \par A solução passa por utilizar o mesmo método em ambos os tipos de objetos, evitando verificações ou qualquer outro tipo de mecanismo para selecionar as diferentes implementações entre estes dois tipos de objetos. \textbf{Em suma, independentemente do tipo de objeto, usando este padrão, deve-se poder tratá-lo de igual forma}.
 
@@ -131,7 +131,7 @@ showstringspaces=false}
     \caption{Estrutura exemplificativa do padrão \textit{Composite} em um diagrama de classes}
 \end{figure}
 
-\par Como é possível observar a partir da estrutra exemplificativa da Figura 1, existe a interface \textbf{\textit{Component}} (que poderia ser uma classe abstrata) onde estão definidos os métodos , o objeto composto (\textbf{\textit{Composite)}} e o objeto singular \textit{\textbf{(Leaf)}}. Independentemente do tipo de objeto, ambos implementam o mesmo método da interface, permitindo, no entanto,  a adição de outros objetos no objeto composto. Apesar do método ter o mesmo nome, dependendo do tipo do objeto, a implementação é diferente, sendo usual no objeto composto percorrer os filhos e chamar o mesmo método. \textbf{Todos os objetos são abordados de igual forma}.
+\par Como é possível observar a partir da estrutra exemplificativa da Figura 1\footnote{https://sourcemaking.com/design\_patterns/composite}, existe a interface \textbf{\textit{Component}} (que poderia ser uma classe abstrata) onde estão definidos os métodos , o objeto composto (\textbf{\textit{Composite)}} e o objeto singular \textit{\textbf{(Leaf)}}. Independentemente do tipo de objeto, ambos implementam o mesmo método da interface, permitindo, no entanto,  a adição de outros objetos no objeto composto. Apesar do método ter o mesmo nome, dependendo do tipo do objeto, a implementação é diferente, sendo usual no objeto composto percorrer os filhos e chamar o mesmo método. \textbf{Todos os objetos são abordados de igual forma}.
 
 \par Podem existir, no entanto, outros tipos de implementações ao utilizar este padrão com a possibilidade de permitir a remoção de objetos contidos no objeto composto ou, por exemplo, permitir apenas a substituição dos objetos guardados por novos, ao invés de adicionar, com o benefício da melhor compreensão do programa, mas reduzindo a flexibilidade. Dito isto, todas estas pequenas modificações sugeridas ao exemplo da Figura 1 continuam a manter a base do padrão \textit{Composite}, sendo totalmente válidas.
 
@@ -165,7 +165,7 @@ showstringspaces=false}
     \caption{Diagrama de classes da solução ao problema de exemplo do padrão \textit{Composite}}
 \end{figure}
 
-\par De acordo com o diagrama de classes (Figura 3) da solução apresentada, é possível observar a existência de duas classes representado os dois tipos de localidades. \textit{District} representa as localidade compostas e \textit{Locality} representa as localidades singulares. Ambas as classes extendem a classe abstrata \textit{Place} onde estão definidos os requisitos de todos os tipos de localidades, de maneira a serem tratadas de igual forma como dita o \textit{Composite}.
+\par De acordo com o diagrama de classes (Figura 3) da solução apresentada, é possível observar a existência de duas classes representado os dois tipos de localidades. \textbf{\textit{District}} representa as localidade compostas e \textbf{\textit{Locality}} representa as localidades singulares. Ambas as classes estendem a classe abstrata \textbf{\textit{Place}} onde estão definidos os requisitos de todos os tipos de localidades, de maneira a serem tratadas de igual forma como dita o \textit{Composite}.
 
 \par Foram utilizados como exemplo de dados desta solução, Lisboa, Aveiro e Amadora como localidades compostas e Reboleira, Alfragide, Sintra, Albergaria e Murtosa como localidades singulares. Reboleira e Alfragide fazem parte da Amadora, que por si só, faz parte de Lisboa. Albergaria e Murtosa fazem parte de Aveiro.
 
@@ -184,15 +184,15 @@ showstringspaces=false}
 
 \subsubsection{\textit{Locality}}
 
-\par Extendendo a classe \textit{Place}, \textit{locality} implementa os métodos e atributos definidos pela sua classe superior.
+\par Estendendo a classe \textit{Place}, \textit{locality} implementa os métodos e atributos definidos pela sua classe superior.
 
 \par A sua modelação permite ao cliente instanciá-la passando o nome da localidade que pretende obter os dados meteorológicos. Utilizando a API do serviço de meteorologia AccuWeather, é feito, na instanciação, um pedido para obter o identificador (\textit{key}) da localidade pretendida o qual é guardado no atributo \textit{locationKey}, juntamente com o nome da localidade no atributo \textit{cityName}, ambos definidos na classe superior.
 
-\par Após a instanciação, qualquer um dos 3 métodos \textit{getWeather()}, \textit{getTemperature()} e \textit{getPrecipitationSummary()} podem ser utilizados para obter os dados, de acordo com a necessidade. Todos estes 3 métodos, bem como o construtor, utilizam o método \textit{getUrl(String url)} para fazer os pedidos à API, passando o url do pedido, interpretando posteriormente os dados recebido em JSON, através da livraria \textit{JSON.simple}. 
+\par Após a instanciação, qualquer um dos 3 métodos \textit{getWeather()}, \textit{getTemperature()} e \textit{getPrecipitationSummary()} podem ser utilizados para obter os dados, de acordo com a necessidade. Todos estes 3 métodos, bem como o construtor, utilizam o método \textit{getUrl(String url)} para fazer os pedidos à API, passando o url do pedido, interpretando posteriormente os dados recebido em JSON, através da biblioteca \textit{JSON.simple}. 
 
 \subsubsection{\textit{District}}
 
-\par Novamente, extendendo a classe \textit{Place}, \textit{District} é semelhante à classe \textit{Locality} nos métodos que implementam.
+\par Novamente, estendendo a classe \textit{Place}, \textit{District} é semelhante à classe \textit{Locality} nos métodos que implementam.
 
 \par \textit{getWeather()}, \textit{getTemperature()} e \textit{getPrecipitationSummary()} funcionam da mesma forma que foi explicada anteriormente mas, visto estarem implementados numa classe que representa objetos compostos, ao invés de executar, apenas, as instruções para a sua localidade, invocam o mesmo método em todos os seus derivados, obtendo não só os dados metereológicos de si próprios, mas também dos seus filhos. 
 
@@ -214,11 +214,11 @@ showstringspaces=false}
 
 \par É expectável que um padrão de desenho de software comportamental, para além de fornecer boas práticas para resolver um determinado problema, foque as mesmas na forma como as classes e objetos interagem e distribuem responsabilidades.\textit{Command}, sendo um destes tipos de padrões, foca-se exactamente nesse ponto.
 
-\par O problema que este padrão resolve incide não só na repetição de código mas também na organização geral das classes e das responsabilidades. \textbf{Separando o objeto que invoca uma ação do que a executa ao colocar um objeto intermediário, que implementa uma interface, o \textit{Command}, este intermediário é responsável por chamar o método que desempenha a ação no objeto receptor}.
-Ao fazer isto, cada objeto tem a sua responsabilidade e são evitados os problemas de repetição de código pois, o objeto intermediário pode ser reutilizado múltiplas vezes, bem como problemas relacionados com limitações de comandos ou de alterações às outras entidades. Estes últimos dois são explicados devido ao facto de, ao utilizar objetos que implementam uma interface \textit{Command}, podemos não só criar novas classes de objetos que implementam esta interface com ações novas mas, também, alterar as outras entidades, desde que estas continuem a aceitar objetos que implementem a interface, sendo, portanto, um código mais flexível.
+\par O problema que este padrão resolve incide não só na repetição de código mas também na organização geral das classes e das responsabilidades. \textbf{Separando o objeto que invoca uma ação do que a executa ao colocar um objeto intermediário, que implementa uma interface, o \textit{Command}. Este intermediário é responsável por chamar o método que desempenha a ação no objeto receptor}.
+Ao fazer isto, cada objeto tem a sua responsabilidade e são evitados os problemas de repetição de código pois o objeto intermediário pode ser reutilizado múltiplas vezes, bem como problemas relacionados com limitações de comandos ou de alterações às outras entidades. Estes últimos dois são explicados devido ao facto de, ao utilizar objetos que implementam uma interface \textit{Command}, podemos não só criar novas classes de objetos que implementam esta interface com ações novas mas, também, alterar as outras entidades, desde que estas continuem a aceitar objetos que implementem a interface, sendo, portanto, um código mais flexível.
 
 \par No fundo, \textbf{está-se a encapsular um pedido num objeto}, criando a possibilidade de adicionar mais métodos ao objeto criado, complementares à simples ação pedida pelo cliente.
-A aproximação mais usual é a adição de um método que permite reverter o comando no entanto, o céu é o limite, é possível criar métodos que permitem adicionar um simples atraso à operação, até à execução de múltiplos comandos com apenas um pedido.
+A aproximação mais usual é a adição de um método que permite desfazer o comando no entanto, o céu é o limite, é possível criar métodos que permitem adicionar um simples atraso à operação, até à execução de múltiplos comandos com apenas um pedido.
 
 
 \begin{figure}[!h]
@@ -227,51 +227,113 @@ A aproximação mais usual é a adição de um método que permite reverter o co
     \caption{Estrutura exemplificativa do padrão \textit{Command} em um diagrama de classes}
 \end{figure}
 
-\par Como é possível observar a partir da estrutura exemplificativa da Figura 4\footnote{}, a interface \textbf{\textit{Command}} onde estão definidos os métodos que os objetos representativos de uma ação irão implementar dita a possibilidade de executar uma dada ação ou reverté-la. Estes objetos estão a encapsular os pedidos do \textit{\textbf{Invoker}} e, posteriormente, invocam os métodos necessários para satisfazer o pedido no \textit{\textbf{Receiver}}. Visto que a interface suporta um método que desfaz a ação desse comando, o cliente pode utilizá-lo exatamente com esse fim, sendo que os objetos que representam uma ação têm de invocar os métodos necessários no \textit{\textbf{Receiver}} para concluir a reversão.
+\par Como é possível observar a partir da estrutura exemplificativa da Figura 4\footnote{Freeman, E., & Robson, E. (2014). Head First design patterns: A brain-friendly guide. Sebastopol, CA: O’Reilly,Edition: 10th Anniversary ed.}, a interface \textbf{\textit{Command}} onde estão definidos os métodos que os objetos representativos de uma ação irão implementar dita a possibilidade de executar uma dada ação ou revertê-la. Estes objetos estão a encapsular os pedidos do \textit{\textbf{Invoker}} e, posteriormente, invocam os métodos necessários para satisfazer o pedido no \textit{\textbf{Receiver}}. Visto que a interface suporta um método que desfaz a ação desse comando, o cliente pode utilizá-lo exatamente com esse fim, sendo que os objetos que representam uma ação têm de invocar os métodos necessários no \textit{\textbf{Receiver}} para concluir a reversão.
 
 \par Considerando, por exemplo, um comando de televisão, este executa múltiplas ações sobre uma televisão, repetindo as ações ao longo da sua utilização. Aproximando este exemplo a uma linguagem de programação, não faria sentido, sempre que um determinado botão fosse clicado, criar um novo objeto com um determinado método ou até mesmo executar um código repetidamente, que apenas funcionaria para uma televisão em específico. 
 Seguindo a lógica do \textit{Command}, faz muito mais sentido instanciar uma classe que armazena a televisão recetora do pedido e que, daí em diante, apenas necessita que lhe chamem o seu método específico para executar a ação, reutilizando e uniformizando o código. 
 
-\par Um dos exemplo mais banais desta situação é toda a gestão que um programa ou sistema operativo faz dos \textit{inputs} de um utilizador. 
+\par Toda a gestão que um programa ou sistema operativo faz dos \textit{inputs} de um utilizador acaba por ser um exemplo deste padrão. 
 Ao utilizar, por exemplo, qualquer tipo de editor de texto, o sistema operativo permite ao utilizador inserir caracteres num campo mas, permite, também, reverter essas inserções (com a ajuda do atalho \textit{ctrl+z}). Ora, isto é um exemplo visível onde faria sentido aplicar este padrão de desenho de software.
 
 \par Pessoalmente, sendo um utilizador casual de algum software de edição de imagens e vídeo (\textit{Adobe Photoshop, Adobe Illustrator e Final Cut Pro}), ao associar o \textit{Command} à gestão que estes programas fazem das ações dos utilizadores, os conceitos análogos ao mesmo tornaram-se ainda mais claros. Pegando no exemplo do \textit{Adobe Photoshop}, todas as alterações que são feitas a uma imagem podem ser desfeitas múltiplas vezes, tanto pela mesma ordem em que foram executadas, como também voltar a refazê-las, novamente, na ordem inversa. 
 Ora, aproximando novamente a uma linguagem de programação, estas ações podem muito bem ser executadas com recurso ao padrão \textit{Command} ao encapsular os pedidos do utilizador em objetos. Estes objetos podem também ser introduzidos numa lista onde constam todos os pedidos recentes. 
 Ao utilizar os famosos atalhos para desfazer e refazer (\textit{ctrl+z e ctrl+shift+z}), o programa apenas teria de utilizar o método para desfazer a ação e percorrer a lista na ordem inversa. O mesmo se aplica para refazer as ações desfeitas, sendo apenas necessário utilizar o método para executar a ação e percorrer novamente a lista já na ordem "normal".
 
-
-
-
-
-\par Como em todos os padrões de desenho de software, a implementação mais correta é sempre discutível pois, apesar de uma solução se desviar da solução-base, esta pode ser justificada de acordo com o problema.
-
 \clearpage
 
 \subsection{Problema}
 
-\par Foi proposta a criação de um labirinto em Java que, para além dos comandos normais de movimento, permita desfazer essas ações.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=325]{images/command/labirinto.png}
-    \caption{Labirinto sugerido para a resolução desta proposta}
-\end{figure}
-
-\par Na Figura 2 é possível observar um exemplo de dados, associando, por exemplo, Viseu e Aveiro a localidades compostas e Alcofra e Campia a localidades singulares derivadas da localidade composta Vouzela. Ao introduzir os dados no programa este tem de ser capaz de lidar com cada localidade, independentemente do tipo e apresentar os dados meteorológicos da mesma. No caso de localidades compostas, é também necessário apresentar os dados das derivadas.
-
+\par Foi proposta a criação de um labirinto em Java que deva permitir ao utilizador deslocar-se pelo caminho correto até ao ponto de chegada. Para além dos comandos normais de movimento, é pedido que também se permita desfazer essas ações. Para complementar, introduziu-se também um comando para mostrar o caminho até à solução do labirinto.
 
 \subsection{Solução}
 
+\par Considerando que todas as ações que o utilizador pretende introduzir no sistema podem ser encapsuladas em objetos, fez todo o sentido aplicar o padrão \textit{Command}. Com a modelação do sistema desta forma, é também possível permitir a adição de um \textit{Logger}, para guardar os comandos feitos ao longo da execução e permitir desfazer as ações anteriores, como pedidos pelo problema, bem como voltar a executá-las, após as desfazer.
+
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=325]{images/command/UML_Example.png}
+    \includegraphics[width=300]{images/command/UML_Example.png}
     \caption{Diagrama de classes da solução apresentada ao problema de exemplo do padrão \textit{Command}}
 \end{figure}
+
+\par De acordo com o diagrama de classes apresentado na Figura 5, a solução implementada apresenta uma interface \textbf{\textit{Command}}, a qual várias classes a implementam, consoante as ações suportadas pela aplicação, representado comandos. Apesar de se verificar que o \textit{Command} ocorre aqui, não é o único sítio onde é visível. Esta solução foi implementada com base num código\footnote{https://www.nku.edu/~foxr/CSC360/Programs/MazeWithGraphics.java} que trabalha com \textit{Java Abstract Window Toolkit (AWT)} e \textit{Java Swing} para criar a interface visual do labirinto, algo que não era o ponto-chave trabalho. A partir disto, foi utilizada a interface \textit{KeyListener} do \textit{Java AWT} para, sempre que o utilizador premisse uma tecla, fossem invocados os métodos da classe \textbf{\textit{KeyHandler}}. Aqui volta a ocorrer o \textit{Command}. Esta classe, posteriormente, dependendo das teclas premidas, utiliza os métodos dos objetos que representam cada comando para que estes, servindo de intermediários, utilizem os métodos da classe do labirinto \textbf{\textit{MazePanel}} para executar as ações. Além disso, guarda esses comando no \textbf{\textit{Logger}} para posteriormente suportar reversão de ações.
+
+\clearpage
+
+\subsubsection{MazePanel}
+
+\par \textit{MazePanel} é a classe responsável por desenhar o labirinto numa interface visual. Para isto acontecer, esta é composta por diversos métodos e atributos para este propósito mas, também, para suportar as ações vindas dos comandos, dos quais destacamos:
+
+\begin{itemize}
+    \item \textbf{Atributo \textit{maze}} - Guarda o labirinto num array bidimensional
+    \item \textbf{Atributo \textit{size}} - Guarda o número de quadrados horizontais e verticais que o labirinto terá (size x size)
+    \item \textbf{Atributo \textit{x}} - Guarda a abscissa da posição atual do jogador
+    \item \textbf{Atributo \textit{y}} - Guarda a ordenada da posição atual do jogador
+    \item \textbf{Método \textit{MazePanel()}} - Responsável pela criação do labirinto
+    \item \textbf{Método \textit{autoSolve()}} - Responsável por mostrar o caminho desde a posição atual do jogador até ao fim do labirinto
+    \item \textbf{Método \textit{unSolve()}} - Responsável por reverter o caminho visível na interface até ao fim do labirinto
+    \item \textbf{Método\textit{solve(int[][] m, int x, int y, int s)}} - Responsável por executar o algoritmo para mostrar o caminho da resolução, com argumentos que representam o labirinto, as coordenadas atuais do jogador e os limites máximos do labirinto
+    \item \textbf{Método\textit{checkPosition()}} - Responsável por verificar se o utilizador mantém-se no caminho correto
+     \item \textbf{Método\textit{paintComponent()}} - Responsável por desenhar o labirinto na interface visual
+\end{itemize}
+
+\par Os restantes métodos da classe permitem ao programa obter e modificar a posição atual do jogador, utilizados pelos comandos. 
+
+\par Todas as posições do labirinto podem ter 4 valores que, dependendo desse valor, são desenhadas com cor diferente na interface visual. Os valores são os seguintes:
+
+\begin{itemize}
+    \item \textbf{0} - Corresponde às paredes, sendo a posição colorida com a cor branca
+    \item \textbf{1} - Corresponde ao caminho que o utilizador pode percorrer, sendo a posição colorida com a cor preta
+    \item \textbf{2} - Corresponde ao fim do labirinto, sendo a posição colorida com a cor vermelha
+    \item \textbf{3} - Corresponde ao caminho desenhado pelo algoritmo que resolve o labirinto, sendo a posição colorida com a cor azul
+\end{itemize}
+
+\par A posição do jogador é colorida com a cor amarela.
+
+\subsubsection{Command}
+
+\par A interface que os comandos, objetos onde são encapsulados os pedidos vindo do \textit{KeyHandler}, implementam é o \textit{Command}. Nesta interface estão definidos apenas dois métodos, o \textit{execute()} e o \textit{unexecute()} de maneira permitir executar as ações mas também desfazê-las.
+
+\subsubsection{CommandFactory}
+
+\par Foi criada uma classe \textit{CommandFactory} que implementa o padrão \textit{Factory Method} apenas com o objetivo de facilitar a criação dos comandos que \textit{KeyHandler} utiliza para executar as ações.
+
+\subsubsection{KeyHandler}
+
+\par \textit{KeyHandler} tem a responsabilidade de criar o \textit{Logger}, bem como os comandos para posteriormente serem utilizados por si.
+
+\par Como referido anteriormente, sempre que o utilizador prime uma tecla, dependendo se a tecla é premida ou libertada, são executados métodos de acordo com a interface \textit{KeyListener}. Tomando partido desses métodos, é verificado através de um switch qual a tecla premida, utilizando os métodos dos comandos para executar a ação, consoante o objetivo do utilizador. São permitidas as seguintes ações:
+
+\begin{itemize}
+    \item \textbf{Deslocar a posição para a esquerda} - Tecla 'a' ou seta da esquerda
+    \item \textbf{Deslocar a posição para a direita} - Tecla 'd' ou seta da direita
+    \item \textbf{Deslocar a posição para cima} - Tecla 'w' ou seta de cima
+    \item \textbf{Deslocar a posição para baixo} - Tecla 's' ou seta de baixo
+    \item \textbf{Mostrar o caminho desde a posição atual do jogador até ao fim do labirinto} - Tecla do espaço
+    \item \textbf{Desfazer a última ação} - Combinação de teclas 'Command' + 'Z'
+    \item \textbf{Refazer a ação que foi desfeita} - Combinação de teclas 'Command' + 'Shift' + 'Z'
+\end{itemize}
+
+\par Após a invocação dos métodos para executar as ações, o objeto do comando é adicionado ao \textit{Logger}.
+
+\subsubsection{Logger}
+
+\par O \textit{Logger} é responsável por guardar as ações, em forma de um objeto de um comando, que o utilizador executa através do teclado, permitindo desfazer e refazer as ações. Para isso, são usados os seguintes métodos e atributos:
+
+\begin{itemize}
+    \item \textbf{Atributo \textit{actions}} - Guarda os últimos comandos feitos pelo utilizador em uma lista
+    \item \textbf{Atributo \textit{index}} - Guarda o indíce atual da lista dos comandos, dependendo da quantidade de ações desfeitas
+    \item \textbf{Método \textit{add(Command act)}} - Permite a adição de comandos
+    \item \textbf{Método \textit{execute()}} - Executa o comando seguinte na lista e avança uma posição no índice, sendo invocado quando se pretende reverter uma ação que foi desfeita
+    \item \textbf{Método \textit{unExecute()}} - Desfaz a ação do comando correspondente à posição do índice, normalmente a posição do último comando executado
+\end{itemize}
+
+
+
 
 
 \clearpage
 
-\section{Bibliografia}
+\section{Referências}
 
 \bibliographystyle{plain}
 
@@ -299,6 +361,8 @@ Ao utilizar os famosos atalhos para desfazer e refazer (\textit{ctrl+z e ctrl+sh
 
 [9] \url{http://miamarti.github.io/HorusFramework/javadoc/org/json/simple/package-summary.html}
 
+[10] Freeman, E., \& Robson, E. (2014). Head First design patterns: A brain-friendly guide. Sebastopol, CA: O'Reilly, Edition: 10th Anniversary ed.
+
 
 \par \textbf{Command:}
 
@@ -313,6 +377,8 @@ Ao utilizar os famosos atalhos para desfazer e refazer (\textit{ctrl+z e ctrl+sh
 [5] \url{https://medium.com/better-programming/the-command-design-pattern-2313909122b5}
 
 [6] \url{https://www.nku.edu/~foxr/CSC360/Programs/MazeWithGraphics.java}
+
+[7] Freeman, E., \& Robson, E. (2014). Head First design patterns: A brain-friendly guide. Sebastopol, CA: O'Reilly, Edition: 10th Anniversary ed.
 
 
 
